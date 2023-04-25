@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { Form,
   FormLabel,
   FormInput,
   SubmitButton} from './ContactForm.styled';
 
-import { addContact,  } from '../../redux/contactsSlice';
+import { addContacts } from 'redux/operations';
+import { getContacts } from 'redux/selectors';
+
 
 export default function ContactForm() {
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(getContacts);
 
   const dispatch = useDispatch();
 
@@ -18,11 +20,11 @@ export default function ContactForm() {
     const name = form.elements.name.value;
     const number = form.elements.number.value;
 
-    const contact = {
-      id: nanoid(),
-      name,
-      number,
-    };
+    // const contact = {
+    //   id: nanoid(),
+    //   name,
+    //   number,
+    // };
     if (
       contacts.find(
         contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
@@ -30,7 +32,7 @@ export default function ContactForm() {
     ) {
       return alert(`${name} is already in contacts.`);
     } else{
-      dispatch(addContact(contact));
+      dispatch(addContacts({name, number}));
     }
     event.target.reset();
   };
@@ -38,6 +40,8 @@ export default function ContactForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+    <h1>Phonebook</h1> 
+
       <FormLabel>
         <h3>Name</h3>
       
