@@ -22,7 +22,7 @@ export const App = () => {
   return (
     <Contacts>      
       <ContactForm />
-      {isLoading && !error && <b>Request in progress...</b>}
+      {isLoading && !error && <b>Завантаження...</b>}
       <Filter />
       <ContactList />
     </Contacts>
